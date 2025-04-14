@@ -79,7 +79,7 @@ public class MenuView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
-        AgregarAnimalViewModel viewAgregar = new AgregarAnimalViewModel();
+        AgregarAnimalView viewAgregar = new AgregarAnimalView();
         viewAgregar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_agregarBtnActionPerformed
