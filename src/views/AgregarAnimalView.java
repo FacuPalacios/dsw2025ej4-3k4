@@ -5,7 +5,7 @@
 package views;
 
 import domain.Especie;
-//import domain.Pais;
+import domain.Pais;
 import domain.Sector;
 import java.util.ArrayList;
 
@@ -180,7 +180,7 @@ public class AgregarAnimalView extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarBtnActionPerformed
 
     private void volverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverBtnActionPerformed
-        MenuViewModel viewMenu = new MenuViewModel();
+        MenuView viewMenu = new MenuView();
         viewMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_volverBtnActionPerformed
