@@ -6,6 +6,7 @@ import domain.*;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Controlador {
     public static TipoAlimentacion[] getTiposAlimentacion(){
@@ -30,5 +31,51 @@ public class Controlador {
         double totalCarnivoros = Persistencia.getTotalComida(TipoAlimentacion.CARNIVORO);
         double totalHerbivoros = Persistencia.getTotalComida(TipoAlimentacion.HERBIVORO);
         return new ComidaViewModel(totalCarnivoros, totalHerbivoros);
+    }
+    
+    public static ArrayList<Pais> getPais(){
+        return Persistencia.getPaises();
+    }
+    
+    public static void CargarAnimales(Especie especie, Pais pais, Sector sector, String edad, String peso, String valorFijo){
+        try {
+            if(especie.getTipoAlimentacion().esCarnivoro()){
+                Mamifero carnivoro = new Carnivoro(Integer.parseInt(edad), Integer.parseInt(peso), especie, sector, pais);
+                Persistencia.CargarAnimales(carnivoro);
+            } else if(especie.getTipoAlimentacion().esHerbivoro()){
+                Mamifero Herbivoro = new Herbivoro(Integer.parseInt(edad), Integer.parseInt(peso), especie, sector, Double.parseDouble(valorFijo), pais);
+                Persistencia.CargarAnimales(Herbivoro);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+    public static void ControlCargaDeDatos(String especie, String pais, String sector, String edad, String peso, String valorFijo){
+        Especie especieSeleccionada = null;
+        Pais paisSeleccionado = null;
+        Sector sectorSeleccionado = null;
+        
+        ArrayList<Especie> especies = Controlador.getEspecies();
+        for(Especie especieFor : especies){
+            if(especieFor.getNombre().equals(especie)){
+                especieSeleccionada = especieFor;
+            }
+        }
+        
+        ArrayList<Pais> paises = Controlador.getPais();
+        for(Pais paisFor : paises){
+            if(paisFor.getNombre().equals(pais)){
+                paisSeleccionado = paisFor;
+            }
+        }
+        
+        ArrayList<Sector> sectores = Controlador.getSectores();
+        for(Sector sectorFor : sectores){
+            if(sectorFor.getNumero() == Integer.parseInt(sector)){
+                sectorSeleccionado = sectorFor;
+            }
+        }
+        
+        Controlador.CargarAnimales(especieSeleccionada, paisSeleccionado, sectorSeleccionado, edad, peso, valorFijo);
     }
 }
